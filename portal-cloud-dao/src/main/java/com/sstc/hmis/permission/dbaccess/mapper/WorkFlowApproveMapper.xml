@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sstc.hmis.permission.dbaccess.dao.WorkFlowApproveMapper" >
+	<select id="getDptInfoByDptId" resultType="com.sstc.hmis.permission.dbaccess.data.PermsTDepartment">
+		select
+			cl_id as clId,
+			cl_name as clName
+		from
+			perms.perms_t_department
+		where
+			cl_id in
+			<foreach close=")" collection="dptIdList" item="listItem" open="(" separator=",">
+                #{listItem}
+            </foreach>
+	</select>
+	
+	<select id="getStaffInfoByUserId" resultType="com.sstc.hmis.permission.dbaccess.data.PermsTStaff">
+		select
+			cl_id as clId,
+			cl_account as clAccount,
+			cl_family_name as clFamilyName,
+			cl_name as clName
+		from
+			perms.perms_t_staff
+		where
+			cl_id in
+			<foreach close=")" collection="userIdList" item="listItem" open="(" separator=",">
+                #{listItem}
+            </foreach>
+	</select>
+	
+	<select id="getJobInfoByJobId" resultType="com.sstc.hmis.permission.dbaccess.data.PermsTPostResponsibility">
+		select
+			cl_id as clId,
+			cl_name as clName
+		from
+			perms.perms_t_post_responsibility
+		where
+			cl_id in
+			<foreach close=")" collection="jobIdList" item="listItem" open="(" separator=",">
+                #{listItem}
+            </foreach>
+	</select>
+</mapper>

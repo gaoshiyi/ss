@@ -1,0 +1,28 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.16.1.60:8761/eureka/
+management:
+  security:
+    enabled: false
+    
+spring:
+  application:
+    name: portal-provider 
+  cloud:
+    config:
+#     配置中安全保护机制
+#      username: sstc
+#      password: cjgly1020
+#      uri: http://config.${sys.profile}.sstcsoft.com/
+      discovery:
+        enabled: true
+        serviceId: config-server   #通过服务的方式查找config
+      name: ${spring.application.name}
+      profile: dev
+      label: portal
+      
+      
+feign:
+  httpclient.enabled: false
+  okhttp.enabled: true

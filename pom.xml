@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<groupId>com.sstc.hmis</groupId>
+	<artifactId>portal-cloud</artifactId>
+	<version>2.0.0-SIMU</version>
+	<packaging>pom</packaging>
+	<modelVersion>4.0.0</modelVersion>
+	<name>权限系统</name>
+	<modules>
+		<module>portal-cloud-cas-common</module>
+		<module>portal-cloud-consumer</module>
+		<module>portal-cloud-dao</module>
+		<module>portal-cloud-discovery</module>
+		<module>portal-cloud-provider</module>
+		<module>portal-cloud-web</module>
+		<module>portal-cloud-cas-server</module>
+		<module>portal-cloud-config-server</module>
+		<module>portal-cloud-admin</module>
+	</modules>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.2.RELEASE</version>
+	</parent>
+
+	<properties>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+		<java-version>1.8</java-version>
+
+		<docker.image.prefix>sstc</docker.image.prefix>
+
+		<shiro.version>1.3.2</shiro.version>
+		<maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
+		<resource.mvn.build.ver>${maven.build.timestamp}</resource.mvn.build.ver>
+
+
+		<spring.boot.admin.version>1.4.6</spring.boot.admin.version>
+		<sstc.hmis.version>2.0.0-SIMU</sstc.hmis.version>
+
+
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Brixton.SR5</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- spring.boot.admin start -->
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server</artifactId>
+				<version>${spring.boot.admin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server-ui</artifactId>
+				<version>${spring.boot.admin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server-ui-hystrix</artifactId>
+				<version>${spring.boot.admin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server-ui-activiti</artifactId>
+				<version>${spring.boot.admin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-starter-client</artifactId>
+				<version>${spring.boot.admin.version}</version>
+			</dependency>
+
+			<!-- client 依赖 -->
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server-ui-turbine</artifactId>
+				<version>${spring.boot.admin.version}</version>
+			</dependency>
+
+			<!-- spring.boot.admin end -->
+			<dependency>
+				<groupId>com.sstc.hmis</groupId>
+				<artifactId>portal-cloud-consumer</artifactId>
+				<version>${sstc.hmis.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.sstc.hmis</groupId>
+				<artifactId>portal-cloud-cas-common</artifactId>
+				<version>${sstc.hmis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sstc.hmis</groupId>
+				<artifactId>portal-cloud-consumer</artifactId>
+				<version>${sstc.hmis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sstc.hmis</groupId>
+				<artifactId>portal-cloud-dao</artifactId>
+				<version>${sstc.hmis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sstc.hmis</groupId>
+				<artifactId>workflow-service</artifactId>
+				<version>${sstc.hmis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sstc.hmis</groupId>
+				<artifactId>mdata-service</artifactId>
+				<version>${sstc.hmis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>common-model</groupId>
+				<artifactId>common-model</artifactId>
+				<version>${sstc.hmis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>common-logger</groupId>
+				<artifactId>common-logger</artifactId>
+				<version>${sstc.hmis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>common-mybatis</groupId>
+				<artifactId>common-mybatis</artifactId>
+				<version>${sstc.hmis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>common-mybatis</groupId>
+				<artifactId>common-logger</artifactId>
+				<version>${sstc.hmis.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>5.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-feign</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.24</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-quartz</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-cas</artifactId>
+			<version>${shiro.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.tmatesoft.svnkit</groupId>
+			<artifactId>svnkit</artifactId>
+		</dependency>
+	</dependencies>
+
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<name>Nexus Release Repository</name>
+			<url>http://172.16.1.32:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://172.16.1.32:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<build>
+		<finalName>${project.artifactId}-${timestamp}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<timestampFormat>yyyyMMdd-HHmmss</timestampFormat>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>create-timestamp</goal>
+						</goals>
+					</execution>
+				</executions>
+				<inherited>false</inherited>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,19 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.16.1.61:8761/eureka/
+
+
+spring:
+  application:
+    name: portal-web
+  cloud:
+    config:
+#      uri: http://config.${sys.profile}.sstcsoft.com
+      discovery:
+        enabled: true
+        serviceId: config-server
+      name: ${spring.application.name}
+      profile: uat
+      label: portal
+      

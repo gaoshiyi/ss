@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  boot:
+    admin:
+      url: http://admin:9999
+logging:
+  path: /data/logs/portal

@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.sstc.hmis</groupId>
+		<artifactId>portal-cloud</artifactId>
+		<version>2.0.0-SIMU</version>
+	</parent>
+	<artifactId>portal-cloud-web</artifactId>
+	<packaging>jar</packaging>
+	<name>权限系统Web界面</name>
+
+	<dependencies>
+	
+		<dependency>
+		   <groupId>de.codecentric</groupId>
+		   <artifactId>spring-boot-admin-starter-client</artifactId>
+		</dependency>
+		<dependency>
+		   <groupId>org.jolokia</groupId>
+		   <artifactId>jolokia-core</artifactId>
+		</dependency>
+		<dependency>
+		   <groupId>de.codecentric</groupId>
+		   <artifactId>spring-boot-admin-server-ui-hystrix</artifactId>
+		</dependency>
+	
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.tomcat.embed</groupId>
+					<artifactId>tomcat-embed-el</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sstc.hmis</groupId>
+			<artifactId>portal-cloud-cas-common</artifactId>
+		</dependency>
+		<!--workflow 
+		<dependency>
+			<groupId>com.sstc.hmis</groupId>
+			<artifactId>workflow-service</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.activiti</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.mybatis</groupId>
+					<artifactId>mybatis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.data</groupId>
+					<artifactId>spring-data-rest-webmvc</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-client</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork><!-- 如果没有该项配置，肯呢个devtools不会起作用，即应用不会restart -->
+					<!-- <layout>ZIP</layout> <excludeGroupIds> aopalliance, ch.qos.logback, 
+						com.alibaba, com.alipay,commons-codec, com.amazonaws, com.belerweb, com.fasterxml, 
+						com.fasterxml.jackson.core, com.fasterxml.jackson.dataformat, com.github.jsqlparser, 
+						com.github.pagehelper, com.github.virtuald, com.google.guava, com.google.inject, 
+						com.jcraft, commonmodel, commonsbeanutils, commonscodec, commonscollections, 
+						commonsconfiguration, commonslang, commonslogging, commonutil, com.netflix.archaius, 
+						com.netflix.eureka, com.netflix.feign, com.netflix.governator, com.netflix.hystrix, 
+						com.netflix.netflixcommons, com.netflix.ribbon, com.netflix.servo, com.sun.jersey, 
+						com.sun.jersey.contribs, com.thoughtworks.xstream, com.trilead, de.regnis.q.sequence, 
+						io.netty, io.reactivex, javax.inject, javax.servlet, javax.validation, javax.ws.rs, 
+						javax.xml.stream, jline, junit, net.java.dev.jna, net.sf.ehcache, org.antlr, 
+						org.apache.commons, org.apache.curator, org.apache.httpcomponents, org.apache.poi, 
+						org.apache.shiro, org.apache.tomcat.embed, org.apache.xmlbeans, org.apache.zookeeper, 
+						org.aspectj, org.bouncycastle, org.codehaus.jettison, org.codehaus.woodstox, 
+						org.crazycake, org.eclipse.jdt.core.compiler, org.hamcrest, org.hdrhistogram, 
+						org.hibernate, org.jasig.cas.client, org.jboss.logging, org.jvnet, org.opensymphony.quartz, 
+						org.ow2.asm, org.slf4j, org.springframework, org.springframework.boot, org.springframework.cloud, 
+						org.springframework.security, org.tmatesoft.sqljet, org.tmatesoft.svnkit, 
+						org.yaml, redis.clients, stax, xmlpull, xpp3,commons-lang, commons-lang,commons-collections,commons-configuration,commons-beanutils, 
+						com.netflix.netflix-commons,org.postgresql,org.springframework.data </excludeGroupIds> 
+						<excludeArtifactIds>logback-ext-spring</excludeArtifactIds> <jvmArguments> 
+						-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 </jvmArguments> -->
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.13</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+	        <plugin>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-maven-plugin</artifactId>
+	            <executions>
+	                <execution>
+	                    <goals>
+	                        <goal>build-info</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	        </plugin>
+		</plugins>
+		<resources>
+			<!-- 打包时将jsp文件拷贝到META-INF目录下 -->
+			<resource>
+				<!-- 指定resources插件处理哪个目录下的资源文件 -->
+				<directory>src/main/webapp</directory>
+				<!--注意此次必须要放在此目录下才能被访问到 -->
+				<targetPath>META-INF/resources</targetPath>
+				<includes>
+					<include>**/**</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>env/**</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<!-- <directory>src/main/resources/env/${profiles.active}</directory> -->
+				<directory>src/main/resources/env</directory>
+				<includes>
+					<include>*.yml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profiles.active>dev</profiles.active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>tst</id>
+			<properties>
+				<profiles.active>tst</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>uat</id>
+			<properties>
+				<profiles.active>uat</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>edu</id>
+			<properties>
+				<profiles.active>edu</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>empark</id>
+			<properties>
+				<profiles.active>empark</profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+</project>

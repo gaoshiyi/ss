@@ -1,0 +1,175 @@
+@charset "utf-8";
+
+/* 我的工单 */
+.order-content .control-extent {
+    width: 101px;
+}
+.order-content .control-container-extent {
+    margin-left: 101px;
+}
+.order-content .wave {
+	height: 26px;
+	padding: 0 3px;
+	line-height: 24px;
+}
+.order-content .box-auto {
+	width: 493px;
+}
+.order-content hr {
+    margin-top: 0;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px dashed #eeeeee;
+}
+.grid-order-height .bui-grid-body {
+	max-height: 165px;
+}
+.bui-queue {
+	position: relative;
+	max-height: 150px;
+}
+.bui-queue .button-updata {
+	position: absolute;
+	top: 10px;
+	right: 0;
+}
+.bui-queue ul li {
+	overflow: hidden;
+	padding-bottom: 5px;
+}
+.bui-queue ul li a {
+	float: left;
+	color: #3c8dbc;
+	text-decoration: underline;
+}
+.bui-queue ul li a.file,
+.defaultTheme .bui-queue-item .default,
+.defaultTheme .bui-queue-item .success,
+.defaultTheme .bui-queue-item .progress,
+.defaultTheme .bui-queue-item .error {
+	float: left;
+	width: 150px;
+	margin-right: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.bui-queue .bui-queue-item .action {
+	position: static;
+	float: left;
+	width: auto;
+}
+.bui-queue .bui-queue-item .action .bui-queue-item-del {
+	color: #3c8dbc;
+	text-decoration: underline;
+}
+.bui-queue .bui-queue-item .action .bui-queue-item-del:hover {
+	color: #3c8dbc;
+}
+.bui-queue ul li a.btn-del {
+	margin-left: 10px;
+}
+.bui-uploader .bui-uploader-button-wrap {
+    padding: 4px 12px;
+	border-radius: 2px;
+	background: #3c8dbc;
+	margin-right: 0;
+	border: none;
+	font-size: inherit;
+}
+.sales-agreement .defaultTheme .bui-uploader-button-wrap {
+	margin-right: 0;
+}
+.bui-uploader .bui-uploader-button-wrap:hover {
+	background: #3c8dbc;
+	border-color: #3c8dbc;
+	font-size: inherit;
+}
+.uploader-box .bui-uploader-button-wrap {
+	float: right;
+}
+.bui-uploader .bui-uploader-button-wrap .bui-uploader-button-text {
+	line-height: 20px;
+	color: #ffffff;
+}
+.bui-uploader .bui-uploader-button-wrap .file-input-wrapper {
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+.personal .auxiliary-text {
+	font-size: 14px;
+}
+.questions hr {
+	margin-top: 0;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px dashed #eeeeee;
+}
+.questions .nav-tabs {
+	margin: 0 -20px;
+	padding: 0 20px;
+}
+.questions .nav-tabs .bui-tab-item-text {
+    min-width: 36px;
+}
+.questions .message {
+	margin: 0;
+	padding: 5px 0 0 0;
+}
+.questions .info-content {
+	background-color: #fafafa;
+	max-height: 190px;
+}
+.questions .info-content li {
+	position: relative;
+	padding: 5px 0;
+	margin: 0 10px;
+	border-bottom: 1px solid #eeeeee;
+}
+.questions .info-content li .link-content {
+	position: absolute;
+	right: 0px;
+	bottom: 10px;
+}
+.questions .control-container .area-add {
+	margin-top: 15px;
+    height: 55px;
+    resize: none;
+}
+.questions .bui-queue {
+	max-height: 75px;
+}
+.questions .data-content {
+	max-height: 400px;
+}
+.questions .data-content li {
+	padding: 3px 0;
+	border-bottom: 1px solid #eeeeee;
+}
+.questions .data-content .text-data {
+	width: 90px;
+}
+.questions .data-content .text-name {
+	width: 80px;
+}
+.questions .data-content .text-file {
+	width: 195px;
+}
+
+@media (min-width:  1740px) {
+	
+	/* 我的工单 */
+	.order-content .control-extent {
+	    width: 116px;
+	}
+	.order-content .control-container-extent {
+	    margin-left: 116px;
+	}
+	.order-content .box-auto {
+		width: 500px;
+	}
+	.questions .nav-tabs .bui-tab-item-text {
+	    min-width: 40px;
+	}	
+}

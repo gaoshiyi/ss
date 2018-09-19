@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+/* CSS Document */
+html,
+body  {
+	font-family: 'Microsoft YaHei', Simsun, Arial, Verdana, Sans-serif;
+	font-size: 14px;
+	color: #333333;
+	height: 100%;
+}
+
+.wrapper {
+	padding: 0;
+	border-width: 15px 20px 20px;
+	border-style: solid;
+	border-color: #ecf0f5;
+	background-color: #ffffff;
+	box-sizing: border-box;
+	min-height: 100%;
+}
+.sestion {
+	padding: 15px 30px;
+}
+
+.sestion .pic {
+	float: left;
+}
+.sestion .intro {
+	float: left;
+	margin-left: 126px;
+}
+.sestion:nth-child(even) .intro {
+	margin-left: 50px;
+}
+.sestion:nth-child(even) .pic {
+	margin-left: 100px;
+}
+.sestion .intro h1 {
+	font-size: 24px;
+}
+.sestion .intro h2 {
+	font-size: 16px;
+}
+.sestion .sort {
+	margin-top: 14px;
+}
+.sestion .sort h3 {
+	margin-bottom: 8px;
+}
+.sestion .sort h4 {
+	color: #666666;
+}
+.sestion .sort .button {
+	padding: 0;
+	margin-top: 14px;
+	height: 30px;
+	width: 120px;
+	border: none;
+	line-height: 30px;
+	text-align: center;
+}
+.sestion .sort .text {
+	float: left;
+}
+.sestion .sort .qrcode {
+	float: left;
+	width: 100px;
+	height: 100px;
+	margin-left: 40px;
+}

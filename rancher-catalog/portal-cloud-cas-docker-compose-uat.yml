@@ -1,0 +1,37 @@
+version: '2'
+services:
+
+    # cas-server
+    cas-server: 
+        environment:
+            server.port: 8090
+            eureka.client.serviceUrl.defaultZone: http://eureka-server.portal-cloud:8761/eureka/
+            spring.boot.admin.url: http://admin.portal-cloud:9999
+            spring.profiles.active: uat
+        labels:
+            io.rancher.container.pull_image: always
+            io.rancher.container.hostname_override: container_name
+        networks:
+          - net-base
+        tty: true
+        image: harbor.sstcsoft.com/public/alpine/portal-cloud-cas-server:$IMAGE_TAG
+        stdin_open: true
+        
+    # cas-haproxy
+    cas-haproxy:
+      ports:
+        - 8090:8090/tcp
+      labels:
+        io.rancher.container.agent.role: environmentAdmin,agent
+        io.rancher.container.agent_service.drain_provider: true
+        io.rancher.container.create_agent: true
+        io.rancher.scheduler.affinity:host_label: sstc.service.tag.cas=haproxy
+      networks:
+        - net-base
+      image: rancher/lb-service-haproxy:v0.7.15
+    
+
+networks:
+    net-base:
+        driver: bridge
+        external: true

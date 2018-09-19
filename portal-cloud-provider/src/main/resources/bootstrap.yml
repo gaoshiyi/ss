@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: dev
+  boot:
+    admin:
+      url: http://admin:9999
+      client:
+        prefer-ip: true
+    routes:
+      endpoints: env,metrics,trace,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,activiti,hystrix.stream
+      
+logging:
+  path: /data/logs/portal

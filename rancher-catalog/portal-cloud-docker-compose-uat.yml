@@ -1,0 +1,61 @@
+version: '2'
+services:
+    # eureka
+    eureka-server:
+        ports: 
+            - 8761:8761
+        environment:
+            server.port: 8761
+            eureka.instance.hostname: eureka-server
+            spring.application.name: sstc-discovery
+            spring.profiles.active: uat
+        labels:
+            io.rancher.container.pull_image: always
+            io.rancher.container.hostname_override: container_name
+        networks:
+            - net-base
+        tty: true
+        image: harbor.sstcsoft.com/public/alpine/portal-cloud-discovery:$IMAGE_TAG
+        stdin_open: true
+      
+    # admin
+    admin:
+        ports: 
+            - 9999:9999
+        environment:
+            eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka/
+            spring.boot.admin.url: http://admin:9999
+            server.port: 9999
+            spring.profiles.active: uat
+        labels:
+            io.rancher.container.pull_image: always
+        networks:
+            - net-base
+        tty: true
+        image: harbor.sstcsoft.com/public/alpine/portal-cloud-admin:$IMAGE_TAG
+        stdin_open: true
+      
+    # config-server
+    config-server:
+        ports: 
+            - 8751:8751
+        environment:
+            server.port: 8751
+            eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka/
+            spring.boot.admin.url: http://admin:9999
+            #spring.cloud.config.server.svn.uri: svn://172.16.1.59:3939/repos/sstc/code/projects/trunk/app-config/ssjy
+            #spring.cloud.config.server.svn.username: config
+            #spring.cloud.config.server.svn.password: sstcconfig
+        labels:
+            io.rancher.container.pull_image: always
+            io.rancher.container.hostname_override: container_name
+        networks:
+            - net-base
+        tty: true
+        image: harbor.sstcsoft.com/public/alpine/portal-cloud-config-server:$IMAGE_TAG
+        stdin_open: true
+
+networks:
+    net-base:
+        driver: bridge
+        external: true

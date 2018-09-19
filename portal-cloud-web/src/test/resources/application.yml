@@ -1,0 +1,68 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+    root:
+      view: main  #根路径试图名
+  messages:
+    basename: classpath:/i18n/**  #Ant风格的通配符匹配
+    localeSupport: zh_CN,en_US
+  application:
+    name: portal-cloud-web  #应用名
+  redis:
+    database: 1
+    host: 172.16.1.32
+    password: sstc-redis
+    port: 6379
+    expire: 1800
+    pool:
+      max-idle: 8
+      min-idle: 0
+      max-active: 8
+      max-wait: 1
+  shiro:
+    cas:
+      ssoServerUrlPrefix: http://172.16.1.60:8088/cas-server   #cas服务地址
+      appUrlPrefix: http://localhost:8080   #当前应用服务地址
+      authSuccessUrl: /
+      
+      
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/  #注册中心地址
+  instance:
+    prefer-ip-address: true
+      
+
+logging:
+  level:
+    root: debug
+#    com.alibaba: debug
+#    org.springframework: info
+#    com.sstc: debug
+#    org.apache.ibatis: debug
+#    org.apache.shiro: debug
+      
+feign.client.name: portal-provider   #rest api 应用名 （对应provider的应用名）
+feign.service.type: consumer
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 15000
+  threadpool:
+    default:
+      coreSize: 500
+#        timeout:
+#          enabled: false
+
+
+
+

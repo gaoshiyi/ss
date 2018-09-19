@@ -1,0 +1,42 @@
+server:
+  port: 8761
+
+hostname:
+  server: http://${eureka.instance.hostname}:${server.port}
+  defaultZoneIp: 127.0.0.1
+
+
+
+spring:
+  application:
+    name: sstc-discovery
+
+#注册中心配置信息
+eureka:
+  client:
+#   是否注册自身到eureka服务器
+    register-with-eureka: false
+#   是否从eureka服务器获取注册信息
+    fetch-registry: false
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: ${hostname.server}/eureka/
+  instance:
+    hostname: localhost
+    statusPageUrl: ${hostname.server}/info
+    healthCheckUrl: ${hostname.server}/health
+    homePageUrl: ${hostname.server}/
+    instanceId: ${spring.application.name}
+    
+  server:
+#  在开发过程中，我们常常希望Eureka Server能够迅速有效地踢出已关停的节点，
+#  但是由于Eureka自我保护模式，以及心跳周期长的原因，常常会遇到Eureka Server不踢出已关停的节点的问题
+    enable-self-preservation: false #关闭Eureka自我保护模式
+    eviction-interval-timer-in-ms: 5000 #清理时间5秒 ，默认 60*1000
+      
+logging:
+  level:
+    root: info
+
+    

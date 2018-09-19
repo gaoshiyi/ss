@@ -1,0 +1,11 @@
+version: '2'
+services:
+  config-server:
+    scale: 1
+    start_on_create: true
+  admin:
+    scale: 1
+    start_on_create: true
+  eureka-server:
+    scale: 1
+    start_on_create: true

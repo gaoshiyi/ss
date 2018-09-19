@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="css/login.css">
+
+<script src="common-resources/jquery/jquery-1.8.1.min.js"></script>
+</head>
+<script type="text/javascript">
+$(function(){
+	if(window.top != window.self){
+		//window.top.location.href = "http://localhost:8080/";
+		window.top.location.href = document.location.origin;
+	}else{
+		console.log("top");
+		$("body").removeClass("white");
+	}
+});
+</script>
+<body class="white">
+<div class="wrapper" id="wrapper">
+	<div class="entry">
+		<div class="entry-intro">
+			<div class="sort">
+				<span class="hh1">PMS管理系统</span>
+				<span class="hh2">随需享用 - 个性化定制 - 无限扩展</span>
+				<span class="hh3">随时随地订购标准化云服务</span>
+				<span class="hh4">个性化定制/移动门户</span>
+			</div>
+		</div>
+		<div class="entry-form">
+			<div class="hd hide">
+				<div class="login-switch">
+					<i class="quick"></i>
+					<!-- <i class="static"></i> -->
+				</div>
+			</div>
+			<div class="bd">
+				<!--标准登录框-->
+				<div class="static-form">
+					<div class="login-title">密码登录</div>
+					<form class="form-horizontal" method="post" id="fm1" action="" autocomplete="off" th:object="${credential}">
+						<div class="login-msg error" th:if="${#fields.hasErrors('*')}"><span th:each="err : ${#fields.errors('*')}" th:utext="${err}"/></div>
+						<input style="display:none" type="text" name="fakeusernameremembered"/>
+						<input style="display:none" type="password" name="fakepasswordremembered"/>
+						<div class="field username-field">
+							<label class="ico" for="username"><i class="iconfont" title="用户名"></i></label>
+							<div class="controls">
+								<input class="control-text" th:errorclass="control-error" id="username" type="text" autocomplete="off" th:field="*{username}" name="" value="" placeholder="手机号或账号">
+								<span class="nickx"><i class="clearing"></i></span>
+							</div>
+						</div>
+						<div class="field pwd-field">
+							<label class="ico" for="pwd"><i class="iconfont" title="密码"></i></label>
+							<div class="controls">
+								<input class="control-text" th:errorclass="control-error" id="pwd" type="password" autocomplete="off" th:field="*{password}" name="" value="" placeholder="密码">
+								<span class="nickx"><i class="showpwd"></i></span>
+							</div>
+						</div>
+						<div class="field code-field">
+							<div class="controls clearfix">
+								<div class="box-w130">
+									<input class="control-text" th:errorclass="control-error" id="captcha" type="text" name="captcha" th:field="*{captcha}" value="" placeholder="请输入验证码">
+									<span class="nickx"><i class="clearing"></i></span>
+								</div>
+								<label class="code-img"><img src="captcha.jpg" alt="验证码" id="captchaImg" onclick="this.src='captcha.jpg?'+Math.random()"></label>
+								<a class="btn-change text-primary login-links" href="javascript:refreshCaptcha();">换一张</a>
+							</div>
+						</div>
+
+						<!-- <div id="QapTcha" class="QapTcha"></div> -->
+
+
+						<div class="links-field clearfix">
+							<!-- <p th:if="${rememberMeAuthenticationEnabled}">
+								<label class="remember-pwd">
+										<input type="checkbox" name="rememberMe" value="true" id="rememberMe" checked>
+									<i></i>
+									<span>记住密码</span>
+								</label>
+							</p> -->
+							<a class="login-links" href="">忘记密码?</a>
+						</div>
+						<input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+            			<input type="hidden" name="_eventId" value="submit"/>
+						<div class="field submit-field captcha-field">
+							<button class="button" id="submit" type="submit">登录</button>
+						</div>
+						<div class="links-field hide clearfix">
+							<a class="login-links pull-right" href="">账号解锁</a>
+						</div>
+					</form>
+				</div>
+
+				<!--扫码登录开始-->
+				<div class="quick-form hide">
+					<div class="qrcode-login">
+						<div class="login-title">手机扫码登录</div>
+						<div class="qrcode-mod">
+							<div class="qrcode-main">
+								<div class="qrcode-img"><img src="updata/qrcode.jpg"></div>
+							</div>
+							<div class="qrcode-desc">
+								<p>使用手机扫一扫登录</p>
+								<p>请使用<span class="text-primary">小秘客户端</span></p>
+							</div>
+						</div>
+						<div class="qrcode-msg">
+							<div class="msg-ok">
+								<div class="qrcode-main">
+									<div class="qrcode-img"><img src="images/login_qrcode_succ.png"></div>
+								</div>
+								<div class="qrcode-desc">
+									<p>请在手机上确认登录</p>
+									<p><a href="#" class="text-primary J_QRCodeRefresh">返回二位维码登录</span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--扫码登录结束-->
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+function refreshCaptcha() {  
+    $("#captchaImg").attr("src","captcha.jpg?t=" + Math.random());    
+} 
+
+function showNickx(prev) {
+	var value = $.trim($(prev).val());
+	if (value != '') {
+		$(prev).next('.nickx').show();
+	} else {
+		$(prev).next('.nickx').hide();
+	}
+}
+$(function () {
+	$('#submit').click(function() {
+		$("#submitLogin").submit();
+	});
+
+	/* 滑动验证码 */
+	//$('#QapTcha').QapTcha({ txtLock: '向右滑动验证', txtUnlock: '验证成功', PHPfile: 'service.aspx' });
+
+	/* 切换登录方式 */
+	$('.login-switch i').click(function() {
+		if ($(this).hasClass('quick')) { //使用标准登录框
+			$(this).removeClass('quick').addClass('static');
+			$('.quick-form').show();
+			$('.static-form').hide();
+		} else {
+			$(this).removeClass('static').addClass('quick');
+			$('.static-form').show();
+			$('.quick-form').hide();
+		}
+	});
+	
+	/* 返回二位维码登录 */
+	$('.J_QRCodeRefresh').click(function(event) {
+		event.preventDefault();
+		$('.qrcode-login').removeClass('qrcode-login-ok qrcode-login-error');
+	});
+	
+	showNickx('#username');
+	showNickx('#pwd');
+	showNickx('#code');
+	$('.field  .control-text').on('focus keyup', function() {
+		showNickx($(this));
+	});
+
+	/* 清空 */
+	$('.nickx .clearing').click(function() {
+		$(this).parent().prev('input').val('');
+		$(this).parent().hide();
+	});
+
+	/* 显示密码 */
+	$('.nickx .showpwd').click(function() {
+		if ($("#pwd").attr("type") == "password") {
+            $("#pwd")[0].type = "text";
+			$(this).addClass('hidepwd');
+        } else {
+            $("#pwd")[0].type = "password";
+			$(this).removeClass('hidepwd');
+        }
+	});
+
+});
+</script>
+</body>
+</html>

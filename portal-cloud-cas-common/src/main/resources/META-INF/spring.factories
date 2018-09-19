@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.sstc.hmis.conf.cas.constants.ShiroCasProperties,\
+com.sstc.hmis.conf.cache.RedisProperties

@@ -1,0 +1,52 @@
+version: '2'
+services:
+
+    # portal-provider
+    portal-provider: 
+        environment:
+            server.port: 8000
+            eureka.client.serviceUrl.defaultZone: http://eureka-server.portal-cloud:8761/eureka/
+            spring.boot.admin.url: http://admin.portal-cloud:9999
+            spring.profiles.active: uat
+        labels:
+            io.rancher.container.pull_image: always
+            io.rancher.container.hostname_override: container_name
+        networks:
+          - net-base
+        tty: true
+        image: harbor.sstcsoft.com/public/alpine/portal-cloud-provider:$IMAGE_TAG
+        stdin_open: true
+        
+    # portal-web
+    portal-web: 
+        environment:
+            server.port: 8080
+            eureka.client.serviceUrl.defaultZone: http://eureka-server.portal-cloud:8761/eureka/
+            spring.boot.admin.url: http://admin.portal-cloud:9999
+            spring.profiles.active: uat
+        labels:
+            io.rancher.container.pull_image: always
+            io.rancher.container.hostname_override: container_name
+        networks:
+          - net-base
+        tty: true
+        image: harbor.sstcsoft.com/public/alpine/portal-cloud-web:$IMAGE_TAG
+        stdin_open: true
+
+    # cas-haproxy
+    portal-web-haproxy:
+      ports:
+        - 8080:8080/tcp
+      labels:
+        io.rancher.container.agent.role: environmentAdmin,agent
+        io.rancher.container.agent_service.drain_provider: true
+        io.rancher.container.create_agent: true
+        io.rancher.scheduler.affinity:host_label: sstc.service.tag.portal.web=haproxy
+      networks:
+        - net-base
+      image: rancher/lb-service-haproxy:v0.7.15
+
+networks:
+    net-base:
+        driver: bridge
+        external: true

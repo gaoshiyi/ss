@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.sstc.hmis</groupId>
+		<artifactId>portal-cloud</artifactId>
+		<version>2.0.0-SIMU</version>
+	</parent>
+	<artifactId>portal-cloud-provider</artifactId>
+	<name>权限系统服务提供者</name>
+	<dependencies>
+	
+		<dependency>
+		   <groupId>de.codecentric</groupId>
+		   <artifactId>spring-boot-admin-starter-client</artifactId>
+		</dependency>
+		<dependency>
+		   <groupId>org.jolokia</groupId>
+		   <artifactId>jolokia-core</artifactId>
+		</dependency>
+		<dependency>
+		   <groupId>de.codecentric</groupId>
+		   <artifactId>spring-boot-admin-server-ui-hystrix</artifactId>
+		</dependency>
+	
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sstc.hmis</groupId>
+			<artifactId>portal-cloud-cas-common</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-devtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-slf4j-impl</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.sstc.hmis</groupId>
+			<artifactId>portal-cloud-dao</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sstc.hmis</groupId>
+			<artifactId>mdata-service</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>common-util</groupId>
+					<artifactId>common-util</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>common-logger</groupId>
+			<artifactId>common-logger</artifactId>
+		</dependency>
+		<!--workflow -->
+		<dependency>
+			<groupId>com.sstc.hmis</groupId>
+			<artifactId>workflow-service</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.activiti</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.mybatis</groupId>
+					<artifactId>mybatis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.data</groupId>
+					<artifactId>spring-data-rest-webmvc</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+					<!-- <layout>ZIP</layout> <excludeGroupIds> aopalliance, ch.qos.logback, 
+						com.alibaba, com.alipay, com.amazonaws, com.belerweb, com.fasterxml, com.fasterxml.jackson.core, 
+						com.fasterxml.jackson.dataformat, com.github.jsqlparser, com.github.pagehelper, 
+						com.github.virtuald, com.google.guava, com.google.inject, com.jcraft, commons-beanutils, 
+						com.netflix.netflix-commons, commons-codec, commons-collections, commons-configuration, 
+						commons-lang, commons-logging, com.netflix.archaius, com.netflix.eureka, 
+						com.netflix.feign, com.netflix.governator, com.netflix.hystrix, com.netflix.netflixcommons, 
+						com.netflix.ribbon, com.netflix.servo, com.sun.jersey, com.sun.jersey.contribs, 
+						com.thoughtworks.xstream, com.trilead, de.regnis.q.sequence, io.netty, io.reactivex, 
+						javax.inject, javax.servlet, javax.validation, javax.ws.rs, javax.xml.stream, 
+						jline, junit, net.java.dev.jna, net.sf.ehcache, net.sourceforge.jtds, org.antlr, 
+						org.apache.commons, org.apache.curator, org.apache.httpcomponents, org.apache.poi, 
+						org.apache.shiro, org.apache.tomcat, org.apache.tomcat.embed, org.apache.xmlbeans, 
+						org.apache.zookeeper, org.aspectj, org.bouncycastle, org.codehaus.jettison, 
+						org.codehaus.woodstox, org.hamcrest, org.hdrhistogram, org.hibernate, org.jasig.cas.client, 
+						org.jboss.logging, org.jvnet, org.logbackextensions, org.mybatis, org.mybatis.spring.boot, 
+						org.opensymphony.quartz, org.ow2.asm, org.postgresql, org.slf4j, org.springframework, 
+						org.springframework.boot, org.springframework.cloud, org.springframework.data, 
+						org.springframework.security, org.tmatesoft.sqljet, org.tmatesoft.svnkit, 
+						org.yaml, redis.clients, stax, xmlpull, xpp3 </excludeGroupIds> <excludeArtifactIds>logback-ext-spring</excludeArtifactIds> -->
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.13</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+			<plugin>
+			   <groupId>org.springframework.boot</groupId>
+			   <artifactId>spring-boot-maven-plugin</artifactId>
+			   <executions>
+			      <execution>
+			         <goals>
+			            <goal>build-info</goal>
+			         </goals>
+			      </execution>
+			   </executions>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>env/**</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<!-- <directory>src/main/resources/env/${profiles.active}</directory> -->
+				<directory>src/main/resources/env</directory>
+				<includes>
+					<include>*.yml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profiles.active>dev</profiles.active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>tst</id>
+			<properties>
+				<profiles.active>tst</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>uat</id>
+			<properties>
+				<profiles.active>uat</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>edu</id>
+			<properties>
+				<profiles.active>edu</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>empark</id>
+			<properties>
+				<profiles.active>empark</profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+</project>

@@ -1,0 +1,14 @@
+server:
+  port: 9999
+spring:
+  boot:
+    admin:
+      url: http://admin:9999
+      client:
+        prefer-ip: true
+    routes:
+      endpoints: env,metrics,trace,dump,jolokia,activiti,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,hystrix.stream
+  application:
+    name: portal-cloud-admin
+  profiles:
+    active: dev

@@ -1,0 +1,13 @@
+{
+  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId" : "^(http|https)://.*",
+  "name" : "Portal",
+  "theme" : "apereo",
+  "id" : 10000000,
+  "description" : "SSTC co simple service",
+  "evaluationOrder" : 1,
+  "attributeReleasePolicy" : {
+    "@class" : "org.apereo.cas.services.ReturnAllowedAttributeReleasePolicy",
+    "allowedAttributes" : [ "java.util.ArrayList", [ "hotelId", "locale", "shiftCode" ] ]
+  }
+}

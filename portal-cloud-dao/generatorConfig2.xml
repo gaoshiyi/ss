@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  <classPathEntry
+        location="C:\Users\Qxiaoxiang\.m2\repository\org\postgresql\postgresql\9.3-1102-jdbc41\postgresql-9.3-1102-jdbc41.jar" />
+	<context id="context1">	    
+		<jdbcConnection driverClass="org.postgresql.Driver"
+			connectionURL="jdbc:postgresql://172.16.1.40:5432/hmis?useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="hmis" password="hmis" />
+		<javaModelGenerator targetPackage="com.sstc.hmis.permission.dbaccess.data"
+			targetProject="portal-cloud-dao" />
+		<sqlMapGenerator targetPackage="com.sstc.hmis.permission.dbaccess.mapper" targetProject="portal-cloud-dao" />
+		<javaClientGenerator targetPackage="com.sstc.hmis.permission.dbaccess.dao"
+			targetProject="portal-cloud-dao" type="XMLMAPPER" />
+		<table schema="perms" tableName="perms_t_group_hotel"></table>
+<!-- 		<table schema="perms" tableName="perms_t_department"></table>
+		<table schema="perms" tableName="perms_t_permission">
+			<columnOverride column="cl_sub_url" jdbcType="ARRAY"
+				javaType="String[]" typeHandler="com.sstc.hmis.dbaccess.mybatis.ArrayTypeHandler" />
+		</table>	
+		<table schema="perms" tableName="perms_t_dpt_post"></table>	
+		<table schema="perms" tableName="perms_t_dpt_staff"></table>	
+		<table schema="perms" tableName="perms_t_post_responsibility"></table>	
+		<table schema="perms" tableName="perms_t_pwd_ques_answer"></table>	
+		<table schema="perms" tableName="perms_t_role"></table>	
+		<table schema="perms" tableName="perms_t_role_permission"></table>	
+		<table schema="perms" tableName="perms_t_staff_role"></table>	
+		<table schema="perms" tableName="perms_t_staff_share"></table>	
+		<table schema="perms" tableName="perms_t_staff_team"></table>	 
+		<table schema="perms" tableName="perms_t_staff"></table>
+		<table schema="perms" tableName="perms_t_staff_hotel"></table> 	
+		<table schema="perms" tableName="perms_t_work_team"></table>
+			-->
+	</context>
+</generatorConfiguration>

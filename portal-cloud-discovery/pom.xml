@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.sstc.hmis</groupId>
+		<artifactId>portal-cloud</artifactId>
+		<version>2.0.0-SIMU</version>
+	</parent>
+	<artifactId>portal-cloud-discovery</artifactId>
+	<name>服务注册与发现中心</name>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>3.10.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+				 	<!-- mvn dependency:tree|grep -e "compile" -e "runtime"|sed 's/|//g'|sed 's/+//g'|awk '{print $3}'|awk -F ":" '{print $1,","}'|sort|uniq|grep -vE "(com.sstc.hmis|common-)"|xargs -->
+					<!-- <layout>ZIP</layout>
+					<excludeGroupIds>
+					aopalliance,ch.qos.logback,com.alibaba,com.amazonaws,com.fasterxml,
+					com.fasterxml.jackson.core,com.fasterxml.jackson.dataformat,com.fasterxml.jackson.module,
+					com.fasterxml.woodstox,com.github.jsqlparser,com.github.pagehelper,
+					com.google.code.findbugs,com.googlecode.javaewah,com.google.guava,com.google.inject,
+					com.jcraft,commons-beanutils,commons-codec,commons-collections,commons-configuration,
+					commons-lang,commons-logging,com.netflix.archaius,com.netflix.eureka,com.netflix.feign,
+					com.netflix.governator,com.netflix.hystrix,com.netflix.netflix-commons,com.netflix.ribbon,
+					com.netflix.servo,com.sun.jersey,com.sun.jersey.contribs,com.thoughtworks.xstream,com.trilead,
+					de.regnis.q.sequence,io.netty,io.reactivex,javax.inject,javax.validation,javax.ws.rs,
+					javax.xml.stream,net.java.dev.jna,net.sf.ehcache,org.antlr,org.apache.commons,
+					org.apache.httpcomponents,org.apache.shiro,org.apache.tomcat.embed,org.aspectj,org.bouncycastle,
+					org.codehaus.jettison,org.codehaus.woodstox,org.eclipse.jgit,org.freemarker,org.hdrhistogram,
+					org.hibernate,org.jasig.cas.client,org.jboss.logging,org.jvnet,org.opensymphony.quartz,org.ow2.asm,
+					org.slf4j,org.springframework,org.springframework.boot,org.springframework.cloud,
+					org.springframework.security,org.tmatesoft.sqljet,org.tmatesoft.svnkit,org.yaml,stax,xmlpull,xpp3
+					</excludeGroupIds> -->
+					<mainClass>com.sstc.hmis.portal.cloud.discovery.DiscoveryApplication</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.13</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

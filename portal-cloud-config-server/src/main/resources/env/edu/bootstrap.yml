@@ -1,0 +1,40 @@
+server:
+  port: 8751
+  group:
+    code: sjjy
+
+#注册中心配置信息
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+    service-url:
+      defaultZone: http://10.1.0.71:8761/eureka/
+
+spring:
+  boot:
+    admin:
+      url: http://admin:9999
+      client:
+        prefer-ip: true
+  application:
+    name: config-server
+    #config配置中心配置信息，必须在bootstrap中配置，在application配置无效
+  profiles:
+    active: subversion #激活svn版本控制
+  cloud:
+    config:
+      server:
+        svn:
+          uri: svn://10.1.0.2:3939/repos/sstc/code/projects/trunk/app-config/${server.group.code}
+          username: config
+          password: sstcconfig
+
+logging:
+  path: /data/logs/portal
+  level:
+    root: info
+
+    
